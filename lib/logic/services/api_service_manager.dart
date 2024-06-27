@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wallet_app/services/api_service.dart';
-import 'package:wallet_app/ui/onboarding/airdrop_request.dart';
-import 'package:wallet_app/ui/onboarding/airdrop_response.dart';
-import 'package:wallet_app/ui/onboarding/balance_response.dart';
-import 'package:wallet_app/ui/onboarding/balance_transfer_request.dart';
-import 'package:wallet_app/ui/onboarding/login_response.dart';
-import 'package:wallet_app/ui/onboarding/transfer_balance_response.dart';
-import 'package:wallet_app/ui/onboarding/wallet_response.dart';
+import 'package:wallet_app/logic/models/airdrop_request.dart';
+import 'package:wallet_app/logic/models/airdrop_response.dart';
+import 'package:wallet_app/logic/models/balance_response.dart';
+import 'package:wallet_app/logic/models/balance_transfer_request.dart';
+import 'package:wallet_app/logic/models/login_response.dart';
+import 'package:wallet_app/logic/models/transfer_balance_response.dart';
+import 'package:wallet_app/logic/models/wallet_response.dart';
+import 'package:wallet_app/logic/services/api_service.dart';
 
 Logger log = Logger(
   printer: PrettyPrinter(),
@@ -149,5 +149,5 @@ class ApiServiceManager {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('loginResponse');
   }
-  
+
 }

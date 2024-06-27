@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wallet_app/providers/wallet_provider.dart';
-import 'package:wallet_app/services/api_service_manager.dart';
+import 'package:wallet_app/logic/providers/wallet_provider.dart';
+import 'package:wallet_app/logic/services/api_service_manager.dart';
+import 'package:wallet_app/ui/home/home_screen.dart';
 import 'package:wallet_app/ui/login_screen.dart';
-import 'package:wallet_app/ui/onboarding/home_screen.dart';
 import 'package:wallet_app/ui/splash_screen.dart';
 
 void main() {

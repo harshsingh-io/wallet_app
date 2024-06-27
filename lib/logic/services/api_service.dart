@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:wallet_app/apiBase.dart';
-import 'package:wallet_app/ui/onboarding/airdrop_request.dart';
-import 'package:wallet_app/ui/onboarding/airdrop_response.dart';
-import 'package:wallet_app/ui/onboarding/balance_response.dart';
-import 'package:wallet_app/ui/onboarding/balance_transfer_request.dart';
-import 'package:wallet_app/ui/onboarding/login_response.dart';
-import 'package:wallet_app/ui/onboarding/transfer_balance_response.dart';
-import 'package:wallet_app/ui/onboarding/wallet_response.dart';
+import 'package:wallet_app/logic/models/airdrop_request.dart';
+import 'package:wallet_app/logic/models/airdrop_response.dart';
+import 'package:wallet_app/logic/models/balance_response.dart';
+import 'package:wallet_app/logic/models/balance_transfer_request.dart';
+import 'package:wallet_app/logic/models/login_response.dart';
+import 'package:wallet_app/logic/models/transfer_balance_response.dart';
+import 'package:wallet_app/logic/models/wallet_response.dart';
 
 part 'api_service.g.dart';
 

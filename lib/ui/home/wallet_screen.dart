@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:wallet_app/ui/create_wallet_screen.dart';
 import 'package:wallet_app/ui/login_screen.dart';
-import 'create_wallet_screen.dart';
-import 'transfer_balance_screen.dart';
-import 'package:wallet_app/providers/wallet_provider.dart';
+import 'package:wallet_app/logic/providers/wallet_provider.dart';
+import 'package:wallet_app/ui/transfer_balance_screen.dart';
 
 Logger log = Logger(
   printer: PrettyPrinter(),
