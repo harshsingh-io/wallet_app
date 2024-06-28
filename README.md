@@ -51,6 +51,7 @@ The app integrates with the following APIs:
 - **Login**: `POST https://api.socialverseapp.com/user/login`
 
 ## Project Structure
+```
 .
 ├── lib
 ├── ├── logic
@@ -98,6 +99,7 @@ The app integrates with the following APIs:
 ├── │   ├── sa_button.dart
 ├── │   ├── apiBase.dart
 └── ├── main.dart
+```
 
 
 ## Detailed Explaination
