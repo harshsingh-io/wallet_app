@@ -20,25 +20,13 @@ class WalletScreen extends StatelessWidget {
       body: Center(
         child: Consumer<WalletProvider>(
           builder: (context, provider, child) {
-            log.t('Balance -----------------------> ${provider.balance}');
-            if (!provider.isLoggedIn) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
-              });
-              return CircularProgressIndicator();
-            }
             return provider.isLoading
                 ? CircularProgressIndicator()
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      provider.balance == 0.0
-                          ? Text(
-                              'Total Balance: \$${provider.balance.toStringAsFixed(2)}')
-                          : Text('Total Balance: \5'),
+                      Text(
+                          'Total Balance: \$${provider.balance.toStringAsFixed(2)}'),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.push(
@@ -61,32 +49,14 @@ class WalletScreen extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          if (provider.walletAddress != null &&
-                              provider.walletAddress!.isNotEmpty) {
-                            try {
-                              await provider.retrieveBalance(
-                                  'devnet', provider.walletAddress!);
-                            } catch (error) {
-                              if (error.toString().contains(
-                                  'Unauthorized. Please log in again.')) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        'Failed to retrieve balance: $error'),
-                                  ),
-                                );
-                              }
-                            }
-                          } else {
+                          try {
+                            await provider.retrieveBalance(
+                                provider.walletAddress!, 'devnet');
+                          } catch (error) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Wallet address is missing.'),
+                                content:
+                                    Text('Failed to retrieve balance: $error'),
                               ),
                             );
                           }

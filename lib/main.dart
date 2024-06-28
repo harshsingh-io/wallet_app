@@ -9,11 +9,11 @@ import 'package:wallet_app/ui/splash_screen.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final apiServiceManager = ApiServiceManager();
+  // final apiServiceManager = ApiServiceManager();
 
   runApp(
     ChangeNotifierProvider(
-      create: (context) => WalletProvider(apiServiceManager),
+      create: (context) => WalletProvider(),
       child: MyApp(),
     ),
   );

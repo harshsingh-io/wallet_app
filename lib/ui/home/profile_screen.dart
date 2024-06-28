@@ -14,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
+            color: Colors.redAccent,
             onPressed: () async {
               await walletProvider.logout();
               // Navigate to the login screen
@@ -30,16 +31,10 @@ class ProfileScreen extends StatelessWidget {
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      provider.profilePictureUrl != null
-                          ? CircleAvatar(
-                              radius: 50,
-                              backgroundImage:
-                                  NetworkImage(provider.profilePictureUrl!),
-                            )
-                          : CircleAvatar(
-                              radius: 50,
-                              child: Icon(Icons.person),
-                            ),
+                      CircleAvatar(
+                        radius: 50,
+                        child: Icon(Icons.person),
+                      ),
                       SizedBox(height: 20),
                       Text(
                         provider.username ?? '',
@@ -63,12 +58,12 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'Wallet Address: ${provider.walletAddress ?? ''}',
+                        'Wallet Address: ${provider.walletAddress != '' ? provider.walletAddress : 'Wallet Not created yet.'}',
                         style: TextStyle(fontSize: 16),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'Last Login: ${provider.lastLogin ?? ''}',
+                        'Last Login: ${provider.lastLogin}',
                         style: TextStyle(fontSize: 16),
                       ),
                     ],

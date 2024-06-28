@@ -38,14 +38,7 @@ class LoginScreen extends StatelessWidget {
                               _usernameController.text,
                               _passwordController.text,
                             );
-                            if (provider.isLoggedIn) {
-                              Fluttertoast.showToast(
-                                  msg: "User Logged In Succesfully!",
-                                  backgroundColor: Colors.green);
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                Navigator.pop(context);
-                              });
-                            }
+                            Navigator.pushReplacementNamed(context, '/home');
                           } catch (error) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(

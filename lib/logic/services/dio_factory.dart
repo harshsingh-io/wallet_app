@@ -53,6 +53,30 @@ class DioFactory {
     );
 
     dio.interceptors.add(
+      InterceptorsWrapper(
+        onError: (DioError error, handler) {
+          Logger().e("Request failed: ${error.message}");
+          switch (error.response?.statusCode) {
+            case 401:
+              // Handle token refresh or re-authentication
+              Logger().e("Unauthorized request - token expired");
+              break;
+            case 404:
+              Logger().e("Resource not found");
+              break;
+            case 500:
+              Logger().e("Server error");
+              break;
+            default:
+              // Handle other statuses if necessary
+              break;
+          }
+          return handler.next(error);
+        },
+      ),
+    );
+
+    dio.interceptors.add(
       RetryInterceptor(
         dio: dio,
         logPrint: print,
