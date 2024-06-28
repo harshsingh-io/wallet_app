@@ -18,22 +18,56 @@ class _CreateWalletScreenState extends State<CreateWalletScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Wallet'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text('Create Wallet'),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
               controller: _walletNameController,
-              decoration: const InputDecoration(labelText: 'Wallet Name'),
+              decoration: InputDecoration(
+                labelText: 'Wallet Name',
+                hintText: 'Eg. Jack\'s Wallet',
+                filled: true,
+                fillColor: Colors.grey[200],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+              ),
             ),
+            SizedBox(height: 10),
             TextField(
               controller: _userPinController,
-              decoration: const InputDecoration(labelText: 'User Pin'),
               obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Pincode',
+                hintText: 'Eg. 6-digit numeric pin',
+                filled: true,
+                fillColor: Colors.grey[200],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.visibility_off),
+                  onPressed: () {
+                    // Toggle pin visibility
+                  },
+                ),
+              ),
             ),
-            const SizedBox(height: 20),
+            Spacer(),
             ElevatedButton(
               onPressed: () async {
                 final walletProvider =
@@ -45,7 +79,8 @@ class _CreateWalletScreenState extends State<CreateWalletScreen> {
                     _network,
                   );
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Wallet created successfully')),
+                    const SnackBar(
+                        content: Text('Wallet created successfully')),
                   );
                   Navigator.pop(context);
                 } catch (error) {
@@ -54,7 +89,12 @@ class _CreateWalletScreenState extends State<CreateWalletScreen> {
                   );
                 }
               },
-              child: const Text('Create Wallet'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.black, // Button color
+                onPrimary: Colors.white, // Text color
+                minimumSize: Size(double.infinity, 50), // Button size
+              ),
+              child: const Text('Create'),
             ),
           ],
         ),

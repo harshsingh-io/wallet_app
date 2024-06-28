@@ -20,6 +20,7 @@ class WalletProvider with ChangeNotifier {
   String? _firstName;
   String? _lastName;
   String? _lastLogin;
+  String? _profilePictureUrl;
 
   double get balance => _balance;
   bool get isLoading => _isLoading;
@@ -30,6 +31,7 @@ class WalletProvider with ChangeNotifier {
   String? get firstName => _firstName;
   String? get lastName => _lastName;
   String? get lastLogin => _lastLogin;
+  String? get profilePictureUrl => _profilePictureUrl;
 
   WalletProvider() {
     _loadToken();
@@ -46,6 +48,7 @@ class WalletProvider with ChangeNotifier {
       _lastName = prefs.getString('last_name');
       _lastLogin = prefs.getString('last_login');
       _walletAddress = prefs.getString('wallet_address');
+      _profilePictureUrl = prefs.getString('profile_picture_url');
       notifyListeners();
     }
   }

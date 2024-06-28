@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_app/logic/providers/wallet_provider.dart';
+import 'package:wallet_app/ui/widgets/sa_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -13,12 +14,18 @@ class ProfileScreen extends StatelessWidget {
         title: const Text('Profile'),
         actions: [
           IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              // Implement settings navigation or functionality
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.logout),
             color: Colors.redAccent,
             onPressed: () async {
               await walletProvider.logout();
               // Navigate to the login screen
-              Navigator.of(context).pushReplacementNamed('/login');
+              Navigator.of(context).pushReplacementNamed('/home');
             },
           ),
         ],
@@ -28,45 +35,69 @@ class ProfileScreen extends StatelessWidget {
           builder: (context, provider, child) {
             return provider.isLoading
                 ? const CircularProgressIndicator()
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircleAvatar(
-                        radius: 50,
-                        child: Icon(Icons.person),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        provider.username ?? '',
-                        style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        provider.email ?? '',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'First Name: ${provider.firstName ?? ''}',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Last Name: ${provider.lastName ?? ''}',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Wallet Address: ${provider.walletAddress != '' ? provider.walletAddress : 'Wallet Not created yet.'}',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Last Login: ${provider.lastLogin}',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ],
+                : SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 20),
+                        CircleAvatar(
+                          radius: 64,
+                          backgroundImage: NetworkImage(provider
+                                  .profilePictureUrl ??
+                              'https://picsum.photos/200'), // Placeholder image URL
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          provider.username ?? '',
+                          style: const TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: const [
+                            Text('0\nFollowing', textAlign: TextAlign.center),
+                            Text('0\nFollowers', textAlign: TextAlign.center),
+                            Text('0\nPosts', textAlign: TextAlign.center),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: 410,
+                          child: SAButton.primary(
+                            onPressed: () {
+                              // Implement edit profile navigation or functionality
+                            },
+                            label: 'Edit Profile',
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        DefaultTabController(
+                          length: 2,
+                          child: Column(
+                            children: <Widget>[
+                              const TabBar(
+                                indicatorColor: Colors.red,
+                                labelColor: Colors.red,
+                                tabs: [
+                                  Tab(text: 'Posts'),
+                                  Tab(text: 'Liked'),
+                                ],
+                              ),
+                              Container(
+                                height: 300, // Fixed height for the tab view
+                                child: const TabBarView(
+                                  children: [
+                                    Center(child: Text('No Post')),
+                                    Center(child: Text('Nothing to show')),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   );
           },
         ),

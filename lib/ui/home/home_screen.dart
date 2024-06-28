@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_app/logic/providers/wallet_provider.dart';
-import 'package:wallet_app/ui/login_screen.dart';
+import 'package:wallet_app/ui/home/profile_screen.dart';
 import 'package:wallet_app/ui/home/wallet_screen.dart';
+import 'package:wallet_app/ui/login/login_screen.dart';
+import 'package:wallet_app/ui/wallet/wallet_onboard_screen.dart'; // Ensure you have a WelcomeScreen
+
+import 'package:wallet_app/ui/widgets/sa_button.dart';
 import 'home_page.dart';
 import 'vible_page.dart';
-import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,12 +20,26 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static final List<Widget> _pages = <Widget>[
-    const HomePage(),
-    const ViblePage(),
-    const WalletScreen(),
-    const ProfileScreen(),
-  ];
+  List<Widget> _pages =
+      <Widget>[]; // Moved from static final for conditional loading
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPages();
+  }
+
+  void _loadPages() {
+    final walletProvider = Provider.of<WalletProvider>(context, listen: false);
+    _pages = [
+      const HomePage(),
+      const ViblePage(),
+      walletProvider.walletAddress == ''
+          ? const WalletOnboardScreen()
+          : const WalletScreen(),
+      const ProfileScreen(),
+    ];
+  }
 
   void _onItemTapped(int index) {
     final provider = Provider.of<WalletProvider>(context, listen: false);
@@ -42,23 +59,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     'You need to be logged in to access this section',
                     style: TextStyle(fontSize: 18.0),
                   ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                      );
-                    },
-                    child: const Text('Sign In'),
-                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: 350,
+                    child: SAButton.primary(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()),
+                        );
+                      },
+                      label: 'Sign In',
+                    ),
+                  )
                 ],
               ),
             ),
           ),
         );
         return;
+      } else {
+        _loadPages(); // Refresh the pages to check for changes in the wallet status
       }
     }
 
@@ -93,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.red,
         unselectedItemColor: Colors.grey[800],
         onTap: _onItemTapped,
       ),
