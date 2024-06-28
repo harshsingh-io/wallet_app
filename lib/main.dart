@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_app/logic/providers/wallet_provider.dart';
-import 'package:wallet_app/logic/services/api_service_manager.dart';
 import 'package:wallet_app/ui/home/home_screen.dart';
 import 'package:wallet_app/ui/login_screen.dart';
-import 'package:wallet_app/ui/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,12 +12,14 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => WalletProvider(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,13 +30,13 @@ class MyApp extends StatelessWidget {
       home: Consumer<WalletProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
-          return HomeScreen();
+          return const HomeScreen();
         },
       ),
       routes: {
-        '/home': (context) => HomeScreen(),
+        '/home': (context) => const HomeScreen(),
         '/login': (context) => LoginScreen(),
       },
     );

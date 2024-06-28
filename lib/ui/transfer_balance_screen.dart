@@ -6,30 +6,32 @@ class TransferBalanceScreen extends StatelessWidget {
   final TextEditingController _recipientController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
 
+  TransferBalanceScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transfer Balance'),
+        title: const Text('Transfer Balance'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: _recipientController,
-              decoration: InputDecoration(labelText: 'Recipient Address'),
+              decoration: const InputDecoration(labelText: 'Recipient Address'),
             ),
             TextField(
               controller: _amountController,
-              decoration: InputDecoration(labelText: 'Amount'),
+              decoration: const InputDecoration(labelText: 'Amount'),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Consumer<WalletProvider>(
               builder: (context, provider, child) {
                 return provider.isLoading
-                    ? CircularProgressIndicator()
+                    ? const CircularProgressIndicator()
                     : ElevatedButton(
                         onPressed: () async {
                           try {
@@ -41,7 +43,7 @@ class TransferBalanceScreen extends StatelessWidget {
                               'devnet',
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text('Transfer successful'),
                               ),
                             );
@@ -53,7 +55,7 @@ class TransferBalanceScreen extends StatelessWidget {
                             );
                           }
                         },
-                        child: Text('Send'),
+                        child: const Text('Send'),
                       );
               },
             ),

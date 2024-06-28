@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_app/ui/create_wallet_screen.dart';
-import 'package:wallet_app/ui/login_screen.dart';
 import 'package:wallet_app/logic/providers/wallet_provider.dart';
 import 'package:wallet_app/ui/transfer_balance_screen.dart';
 
@@ -11,17 +10,19 @@ Logger log = Logger(
 );
 
 class WalletScreen extends StatelessWidget {
+  const WalletScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wallet'),
+        title: const Text('Wallet'),
       ),
       body: Center(
         child: Consumer<WalletProvider>(
           builder: (context, provider, child) {
             return provider.isLoading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -32,10 +33,10 @@ class WalletScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CreateWalletScreen()),
+                                builder: (context) => const CreateWalletScreen()),
                           );
                         },
-                        child: Text('Create Wallet'),
+                        child: const Text('Create Wallet'),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -45,7 +46,7 @@ class WalletScreen extends StatelessWidget {
                                 builder: (context) => TransferBalanceScreen()),
                           );
                         },
-                        child: Text('Transfer Balance'),
+                        child: const Text('Transfer Balance'),
                       ),
                       ElevatedButton(
                         onPressed: () async {
@@ -61,7 +62,7 @@ class WalletScreen extends StatelessWidget {
                             );
                           }
                         },
-                        child: Text('Refresh Balance'),
+                        child: const Text('Refresh Balance'),
                       ),
                     ],
                   );

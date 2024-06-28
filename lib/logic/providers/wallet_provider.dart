@@ -1,23 +1,14 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wallet_app/logic/models/airdrop_request.dart';
-import 'package:wallet_app/logic/models/airdrop_response.dart';
-import 'package:wallet_app/logic/models/balance_response.dart';
-import 'package:wallet_app/logic/models/balance_transfer_request.dart';
-import 'package:wallet_app/logic/models/login_response.dart';
-import 'package:wallet_app/logic/models/transfer_balance_response.dart';
-import 'package:wallet_app/logic/models/wallet_response.dart';
 import 'package:wallet_app/logic/services/api_service.dart';
-import 'package:wallet_app/logic/services/api_service_manager.dart';
 
 Logger log = Logger(printer: PrettyPrinter());
 
 class WalletProvider with ChangeNotifier {
-  ApiService _apiService = ApiService();
+  final ApiService _apiService = ApiService();
 
   String? _token;
   double _balance = 0.0;
@@ -82,7 +73,7 @@ class WalletProvider with ChangeNotifier {
       await prefs.setString('last_login', _lastLogin!);
       await prefs.setString('wallet_address', _walletAddress!);
     } catch (error) {
-      throw error;
+      rethrow;
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -133,7 +124,7 @@ class WalletProvider with ChangeNotifier {
       // Optionally, store the entire wallet response if needed elsewhere in your app
       await prefs.setString('walletResponse', jsonEncode(response));
     } catch (error) {
-      throw error;
+      rethrow;
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -151,7 +142,7 @@ class WalletProvider with ChangeNotifier {
       await _apiService.transferBalance(
           _token!, recipientAddress, senderAddress, amount, userPin, network);
     } catch (error) {
-      throw error;
+      rethrow;
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -169,7 +160,7 @@ class WalletProvider with ChangeNotifier {
           await _apiService.retrieveBalance(_token!, walletAddress, network);
       _balance = (response['balance'] as num).toDouble();
     } catch (error) {
-      throw error;
+      rethrow;
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -185,7 +176,7 @@ class WalletProvider with ChangeNotifier {
       notifyListeners();
       await _apiService.requestAirdrop(_token!, walletAdress, amount, network);
     } catch (error) {
-      throw error;
+      rethrow;
     } finally {
       _isLoading = false;
       notifyListeners();

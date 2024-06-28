@@ -8,6 +8,8 @@ import 'vible_page.dart';
 import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -15,11 +17,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static List<Widget> _pages = <Widget>[
-    HomePage(),
-    ViblePage(),
-    WalletScreen(),
-    ProfileScreen(),
+  static final List<Widget> _pages = <Widget>[
+    const HomePage(),
+    const ViblePage(),
+    const WalletScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -32,15 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context) => BottomSheet(
             onClosing: () {},
             builder: (context) => Container(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
+                  const Text(
                     'You need to be logged in to access this section',
                     style: TextStyle(fontSize: 18.0),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         MaterialPageRoute(builder: (context) => LoginScreen()),
                       );
                     },
-                    child: Text('Sign In'),
+                    child: const Text('Sign In'),
                   ),
                 ],
               ),

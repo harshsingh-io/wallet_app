@@ -10,10 +10,10 @@ class ProfileScreen extends StatelessWidget {
     final walletProvider = Provider.of<WalletProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             color: Colors.redAccent,
             onPressed: () async {
               await walletProvider.logout();
@@ -27,44 +27,44 @@ class ProfileScreen extends StatelessWidget {
         child: Consumer<WalletProvider>(
           builder: (context, provider, child) {
             return provider.isLoading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 50,
                         child: Icon(Icons.person),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text(
                         provider.username ?? '',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         provider.email ?? '',
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         'First Name: ${provider.firstName ?? ''}',
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         'Last Name: ${provider.lastName ?? ''}',
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         'Wallet Address: ${provider.walletAddress != '' ? provider.walletAddress : 'Wallet Not created yet.'}',
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         'Last Login: ${provider.lastLogin}',
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ],
                   );

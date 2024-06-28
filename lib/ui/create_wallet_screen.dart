@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:wallet_app/logic/providers/wallet_provider.dart';
 
 class CreateWalletScreen extends StatefulWidget {
+  const CreateWalletScreen({super.key});
+
   @override
   _CreateWalletScreenState createState() => _CreateWalletScreenState();
 }
@@ -16,7 +18,7 @@ class _CreateWalletScreenState extends State<CreateWalletScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Wallet'),
+        title: const Text('Create Wallet'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,14 +26,14 @@ class _CreateWalletScreenState extends State<CreateWalletScreen> {
           children: [
             TextField(
               controller: _walletNameController,
-              decoration: InputDecoration(labelText: 'Wallet Name'),
+              decoration: const InputDecoration(labelText: 'Wallet Name'),
             ),
             TextField(
               controller: _userPinController,
-              decoration: InputDecoration(labelText: 'User Pin'),
+              decoration: const InputDecoration(labelText: 'User Pin'),
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 final walletProvider =
@@ -43,7 +45,7 @@ class _CreateWalletScreenState extends State<CreateWalletScreen> {
                     _network,
                   );
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Wallet created successfully')),
+                    const SnackBar(content: Text('Wallet created successfully')),
                   );
                   Navigator.pop(context);
                 } catch (error) {
@@ -52,7 +54,7 @@ class _CreateWalletScreenState extends State<CreateWalletScreen> {
                   );
                 }
               },
-              child: Text('Create Wallet'),
+              child: const Text('Create Wallet'),
             ),
           ],
         ),
